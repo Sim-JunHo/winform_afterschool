@@ -1,4 +1,7 @@
-﻿namespace after_2
+﻿using System.Drawing.Text;
+using System.Windows.Forms;
+
+namespace after_2
 {
     partial class Form1
     {
@@ -41,18 +44,17 @@
             // 
             // pictureBox1
             // 
-            this.pictureBox1.Image = global::after_2.Properties.Resources.dobby;
-            this.pictureBox1.Location = new System.Drawing.Point(654, 219);
+            this.pictureBox1.Image = global::after_2.Properties.Resources.전툭2;
+            this.pictureBox1.Location = new System.Drawing.Point(534, 478);
             this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(212, 299);
+            this.pictureBox1.Size = new System.Drawing.Size(70, 73);
             this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.pictureBox1.TabIndex = 1;
             this.pictureBox1.TabStop = false;
             // 
             // timer2
             // 
-            this.timer2.Interval = 1000;
-            this.timer2.Tick += new System.EventHandler(this.timer2_Tick);
+            this.timer2.Tick += new System.EventHandler(this.Timer2_tick);
             // 
             // Form1
             // 
@@ -87,7 +89,7 @@
                 // 
                 // pictureBox2
                 // 
-                this.pictureBox2[index].Image = global::after_2.Properties.Resources.work;
+                this.pictureBox2[index].Image = global::after_2.Properties.Resources.ufo;
                 // this.pictureBox2[index].Image = ((System.Drawing.Image)(resources.GetObject("pictureBox2.Image")));
                 this.pictureBox2[index].Location = new System.Drawing.Point(300 + 80 * index, 95);
                 this.pictureBox2[index].Name = "pictureBox2" + index;
@@ -99,10 +101,33 @@
             }
         }
 
+        private PictureBox MakeBullet()
+        {
+            System.Windows.Forms.PictureBox pictureBox3;
+            pictureBox3 = new System.Windows.Forms.PictureBox();
+            ((System.ComponentModel.ISupportInitialize)(pictureBox3)).BeginInit();
+
+            // 
+            // pictureBox3
+            // 
+            pictureBox3.Image = global::after_2.Properties.Resources.bullet;
+            pictureBox3.Location = new System.Drawing.Point(pictureBox1.Location.X + 19, pictureBox1.Location.Y - 30);
+            pictureBox3.Name = "pictureBox3";
+            pictureBox3.Size = new System.Drawing.Size(32, 38);
+            pictureBox3.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            pictureBox3.TabIndex = 2;
+            pictureBox3.TabStop = false;
+
+            Controls.Add(pictureBox3);
+            ((System.ComponentModel.ISupportInitialize)(pictureBox3)).EndInit();
+            return pictureBox3;
+        }
+
+
         private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.PictureBox[] pictureBox2;
         private System.Windows.Forms.Timer timer1;
-        private System.Windows.Forms.Timer timer2;
+        private Timer timer2;
     }
 }
 

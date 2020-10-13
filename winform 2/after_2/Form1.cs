@@ -5,7 +5,9 @@ using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Runtime.CompilerServices;
+using System.Runtime.Remoting.Metadata.W3cXsd2001;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -13,12 +15,18 @@ namespace after_2
 {
     public partial class Form1 : Form
     {
+        List<PictureBox> bulletList;
+        List<PictureBox> removeList;
+        Thread BulletMoveTh;
         int SizeOfSnow = 10;
         public Form1()
         {
             InitializeComponent();
             MakePIcArr(SizeOfSnow);
             timer1.Start();
+            // enemyMove(pictureBox2);
+            MakeBullet();
+            bulletList = new List<PictureBox>();
             timer2.Start();
         }
 
@@ -55,7 +63,13 @@ namespace after_2
             {
                 pictureBox1.Top += 10;
             }
+            if (e.KeyCode == Keys.Space)
+            {
+                bulletList.Add(MakeBullet());
+            }
         }
+
+
 
         private void timer1_Tick(object sender, EventArgs e)
         {
@@ -69,14 +83,41 @@ namespace after_2
             }
         }
 
-        private void timer2_Tick(object sender, EventArgs e)
+        private void Timer2_tick(object sender, EventArgs e)
         {
-            Random rand = new Random();
-            for(int i = 0; i < SizeOfSnow; i++)
+            while (bulletList != null)
             {
-                pictureBox2[i].Top = rand.Next(0, this.Height - pictureBox2[i].Height*2 - 100);
-                pictureBox2[i].Left = rand.Next(0, this.Width - pictureBox2[i].Width);
+                foreach (var bullet in this.bulletList)
+                {
+                    bullet.Top -= 15;
+                    if (bullet.Top < -bullet.Top)
+                    {
+                        removeList.Add(bullet);
+                    }
+                }
+                foreach (var removePicture in removeList)
+                {
+                    bulletList.Remove(removePicture);
+                    this.Controls.Remove(removePicture);
+                }
             }
         }
+
+        /*
+        private void enemyMove(object i)
+        {
+            int index = (int)i;
+            Random rand = new Random();
+
+            while(true)
+            {
+                if (pictureBox2[index].Top >= this.Height)
+                    pictureBox2[index].Top = -pictureBox2[index].Height;
+
+                pictureBox2[index].Top += 30;
+                Thread.Sleep(rand.Next(100));
+            }
+        }
+        */
     }
 }
